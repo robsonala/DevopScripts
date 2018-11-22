@@ -1,4 +1,4 @@
-# DevopScripts
+# Devops Scripts
 Scripts to automise install / deploy projects
 
 ### Before installation
