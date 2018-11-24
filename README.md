@@ -1,5 +1,5 @@
-# DevopScripts
-Scripts to automise install / deploy projects
+# Devops Scripts
+Scripts to automate installations and deploys
 
 ### Before installation
 Give permission to `run-permissions` and execute it
