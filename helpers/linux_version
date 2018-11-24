@@ -1,0 +1,33 @@
+#!/bin/bash
+
+distro=$(lsb_release -is)
+codename=$(lsb_release -cs)
+
+is_debian_supported() {
+    if [ "$distro" = "Debian" ]; then
+        if [ "$codename" = "stretch" ] || [ "$codename" = "jessie" ]; then
+            true
+        else 
+            false
+        fi
+    else
+        false
+    fi
+}
+
+is_ubuntu_supported() {
+    if [ "$distro" = "Ubuntu" ]; then
+        if [ "$codename" = "trusty" ] || [ "$codename" = "xenial" ] || [ "$codename" = "bionic" ]; then
+            true
+        else 
+            false
+        fi
+    else
+        false
+    fi
+}
+
+is_centos_supported() {
+    # TODO
+    false
+}

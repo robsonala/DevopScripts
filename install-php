@@ -7,12 +7,16 @@
 
 RET_CODE_OK=0
 RET_CODE_ERROR=1
-dir="$(dirname "$0")"
+dir="$(dirname "$0")" #$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
 if [ $(id -u) -ne 0 ]; then
     echo "$0: Run it as root";
     exit $RET_CODE_ERROR;
 fi
+
+for i in "$dir"/helpers/*; do
+    . $i
+done
 
 print_help() {
     echo ""
@@ -22,6 +26,7 @@ print_help() {
     echo "    [-h] Help"
     echo "    [-l] List available PHP version to install"
     echo "    [-pv] Set PHP Version"
+    echo "    [-c] Check if it is installed"
     echo "    [-u] Run Uninstall mode"
     exit $RET_CODE_ERROR;
 }
@@ -40,6 +45,10 @@ while test -n "$1"; do
  ARG_PV=$2
  shift
  ;;
+ -c)
+ ARG_C=true
+ echo "Checking mode"
+ ;;
  -u)
  ARG_U=true
  echo "Unistalling mode"
@@ -56,17 +65,22 @@ done
 if [ -z "$ARG_PV" ]; then
     echo "Set a PHP version"
     exit $RET_CODE_ERROR
-elif [ ! -d "php/$ARG_PV" ]; then
+elif [ ! -f "php/$ARG_PV" ]; then
     echo "PHP Version $ARG_PV not found"
     exit $RET_CODE_ERROR
 fi
 
 echo "Using PHP version $ARG_PV"
 
-if [ "$ARG_U" ]; then
-    "$dir/php/$ARG_PV/uninstall"
+# Including file
+. $dir/php/$ARG_PV
+
+if [ "$ARG_C" ]; then
+    check
+elif [ "$ARG_U" ]; then
+    uninstall
 else
-    "$dir/php/$ARG_PV/install"
+    install
 fi
 
 echo "Finished..."

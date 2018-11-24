@@ -19,6 +19,7 @@ Usage
     [-h] Help
     [-l] List available PHP version to install
     [-pv] Set PHP Version
+    [-c] Check if it is installed
     [-u] Run Uninstall mode
     
 $ sudo ./install-php -l
@@ -30,6 +31,14 @@ Reading package lists... Done
 (...)
 Finished...
     
+$ sudo ./install-php -pv 7.1 -c
+Using PHP version 7.1
+PHP Version found
+Packages found
+php7.1-cli                                      install
+php7.1-common                                   install
+Finished...
+    
 $ sudo ./install-php -pv 7.1 -u
 Unistalling mode
 Using PHP version 7.1
@@ -38,7 +47,6 @@ Reading package lists... Done
 Finished...
 ```
 ### Todos
- - Add PHP 5 Support
  - Add support to CentOS
  - Test it on Debian :P
  - Improve documentation
